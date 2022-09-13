@@ -13,6 +13,15 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+
+$router->get('/', 'HomeController@index');
+
+
+// ADMIN
+$router->get('/admin', 'AdminController@index');
+
+
+// CATEGORY
+$router->get('/admin/category', 'CategoryController@index');
+$router->post('/admin/category', 'CategoryController@create');
+$router->put('/admin/category', 'CategoryController@update');
