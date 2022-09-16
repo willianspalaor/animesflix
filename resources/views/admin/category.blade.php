@@ -1,77 +1,84 @@
 @extends('layouts.admin')
 
 @section('script')
-	<script src="/js/admin/category.js"></script>
+<script src="/js/admin/xhr/Category.js"></script>
+<script src="/js/admin/Category.js"></script>
 @stop
 
 @section('body')
-<div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Categorias</h2>
-					</div>
-					<div class="col-sm-6">
-						<a href="#addCategoryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Adicionar</span></a>
-						<a href="#deleteCategoryModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Remover</span></a>						
-					</div>
+
+<div class="table-responsive">
+	<div class="table-wrapper">
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>Categorias</h2>
+				</div>
+				<div class="col-sm-6">
+					<a href="#addCategoryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i><span>Adicionar</span></a>			
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Título</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-				 	@foreach($categories as $category)
-                 		<tr>
-                 			<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox_{{ $category->id }}" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>{{ $category->title }}</td>
-							<td>
-								<a href="#editCategoryModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#deleteCategoryModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							</td>
-                 		</tr>
-                    @endforeach
-				</tbody>
-			</table>
-			
-			<!--<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
-			-->
 		</div>
-	</div>        
-</div>
+		<table id="categoryTable" class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>
+						<span class="custom-checkbox">
+							<input type="checkbox" id="selectAll">
+							<label for="selectAll"></label>
+						</span>
+					</th>
+					<th>Título</th>
+					<th>Ativo</th>
+					<th class='text-center'>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+			 	@foreach($categories as $category)
+             		<tr>
+             			<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox_{{ $category->id }}" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+						</td>
+						<td>{{ $category->title }}</td>
+
+						@if($category->active)
+							<td><i class="material-icons green">&#xE86C;</i></td>
+						@else
+							<td><i class="material-icons red">&#xE5C9;</i></td>
+						@endif
+
+						<td>
+							<div class="btn-group">
+								<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa-solid fa-grid"></i>
+								</button>
+								<div class="dropdown-menu">
+									<a data-id="{{ $category->id}}" href="#updateCategoryModal" class="dropdown-item updateCategoryButton" data-toggle="modal">Alterar</a>
+									<a data-id="{{ $category->id}}" href="#deleteCategoryModal" class="dropdown-item deleteCategoryButton" data-toggle="modal">Remover</a>
+									<div class="dropdown-divider"></div>
+
+									@if($category->active)
+										<a data-id="{{ $category->id}}" class="dropdown-item inactivateCategoryButton" href="javascript:void(0)">Inativar</a>
+									@else
+										<a data-id="{{ $category->id}}" class="dropdown-item activateCategoryButton" href="javascript:void(0)">Ativar</a>
+									@endif
+								</div>
+							</div>
+						</td>
+             		</tr>
+                @endforeach
+			</tbody>
+		</table>
+	</div>
+</div>        
 @stop
 
 @section('modal')
 <!-- Add Modal HTML -->
-<div id="addCategoryModal" class="modal fade">
+<div id="addCategoryModal" class="modal fade" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form id="addCategoryForm" method="POST">
@@ -94,10 +101,10 @@
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editCategoryModal" class="modal fade">
+<div id="updateCategoryModal" class="modal fade" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="POST">
+			<form id="updateCategoryForm" method="POST">
 
 				<input type="hidden" name="id" />
 
@@ -120,16 +127,19 @@
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteCategoryModal" class="modal fade">
+<div id="deleteCategoryModal" class="modal fade" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form id="deleteCategoryForm" method="POST">
+
+				<input type="hidden" name="id" />
+
 				<div class="modal-header">						
 					<h4 class="modal-title">Deletar Categoria</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Tem certeza que deseja remover esses registros?</p>
+					<p>Tem certeza que deseja remover esse(s) registro(s)?</p>
 					<p class="text-danger"><small>Esta ação não pode ser desfeita.</small></p>
 				</div>
 				<div class="modal-footer">
@@ -140,6 +150,4 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>
 @stop

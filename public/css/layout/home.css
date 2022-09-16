@@ -1,282 +1,392 @@
 /* CSS VARIABLES */
 :root {
-  --primary: #141414;
-  --light: #F3F3F3;
-  --dark: 	#686868;
+--primary: #141414;
+--light: #F3F3F3;
+--dark: 	#686868;
 }
 
 html, body {
-  width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: var(--primary);
-  color: var(--light);
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
-  line-height: 1.4;
+width: 100vw;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+background-color: var(--primary);
+color: var(--light);
+font-family: Arial, Helvetica, sans-serif;
+box-sizing: border-box;
+line-height: 1.4;
+overflow-x: hidden;
 }
 
 img {
-  max-width: 100%;
+max-width: 100%;
 }
 
 h1 {
-  padding-top: 60px;  
+padding-top: 60px;  
 }
 
 .wrapper {
-  margin: 0;
-  padding: 0;
+margin: 0;
+padding: 0;
 }
 
 /* HEADER */
 header {
-  padding: 20px 20px 0 20px;
-  position: fixed;
-  top: 0;
-  display: grid;  
-  grid-gap:5px;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: 
-   "nt mn mn sb . . . "; 
-  background-color: var(--primary);
-  width: 100%;
-  margin-bottom: 0px;  
+padding: 20px 20px 0 20px;
+position: fixed;
+top: 0;
+display: grid;  
+grid-gap:5px;
+grid-template-columns: 1fr 4fr 1fr;
+grid-template-areas: 
+"nt mn mn sb . . . "; 
+background-color: var(--primary);
+width: 100%;
+margin-bottom: 0px;  
 }
 
 .animeflixLogo {
-  grid-area: nt;
-  object-fit: cover;
-  width: 100px;
-  max-height: 100%;
-  
-  padding-left: 30px;
-  padding-top: 0px;  
+grid-area: nt;
+object-fit: cover;
+width: 100px;
+max-height: 100%;
+
+padding-left: 30px;
+padding-top: 0px;  
 }
 
 .animeflixLogo img {  
-  height: 35px;     
+height: 35px;     
 }
 
 #logo {
-  color: #E50914;  
-  margin: 0; 
-  padding: 0; 
+color: #E50914;  
+margin: 0; 
+padding: 0; 
 }
 
 
 .main-nav {
-  grid-area: mn;
-  padding: 0 30px 0 20px;
+grid-area: mn;
+padding: 0 30px 0 20px;
 }
 
 .main-nav a {
-  color: var(--light);
-  text-decoration: none;
-  margin: 5px;  
+color: var(--light);
+text-decoration: none;
+margin: 5px;  
 }
 
 .main-nav a:hover {
-  color: var(--dark);
+color: var(--dark);
 }
 
 .sub-nav {
-  grid-area: sb;
-  padding: 0 40px 0 40px;
+grid-area: sb;
+padding: 0 40px 0 40px;
 }
 
 .sub-nav a {
-  color: var(--light);
-  text-decoration: none;
-  margin: 5px;
+color: var(--light);
+text-decoration: none;
+margin: 5px;
 }
 
 .sub-nav a:hover {
-  color: var(--dark);
+color: var(--dark);
 }
 
 
 /* MAIN CONTIANER */
 .main-container {
-  padding: 50px;
+padding: 100px;
 }
 
 .box {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(6, minmax(100px, 1fr));
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(6, minmax(100px, 1fr));
 }
 
-.box a {
-  transition: transform .3s;  
+.box div.card {
+transition: transform .3s; 
+position : relative; 
+cursor: pointer;
 }
 
-.box a:hover {
-  transition: transform .3s;
-  -ms-transform: scale(1.4);
-  -webkit-transform: scale(1.4);  
-  transform: scale(1.4);
+.box div.card-info{
+box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+position: absolute;
+background-color: #181818;
+width: 100%;
+bottom: -90px;
+height: 100px;
+visibility: hidden;
+opacity: 0;
+transition: visibility 0s linear 300ms, opacity 300ms;
 }
+
+.box div.card-info .controls{
+padding: 10px 10px;
+display: grid;
+grid-gap: 5px;
+grid-template-columns: repeat(8, minmax(10px, 1fr));
+text-align: center;
+}
+
+.box div.card-info .controls svg{
+font-size: 20px;
+color: #fff;
+}
+
+.box div.card-info .controls svg:hover{
+color: #ddd;
+}
+
+.box div.card video{
+max-width: 100%;
+}
+
+
+.box div.card:hover {
+transform: scale(1.6);
+translate: 0px -50px;
+transition-duration: 0.5s;
+-ms-transform: scale(1.6);
+-webkit-transform: scale(1.6);
+display: block;
+z-index: 999;
+}
+
+
+
+.box div.card.extended:hover {
+width: 350px;
+height: auto;
+translate: 10px;
+}
+
+.box div.card:hover .card-info{
+visibility: visible;
+opacity: 1;
+transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+
+.box div.card-video{
+display: none;
+}
+
+.box div.card:hover img{
+border-bottom-left-radius: 0;
+border-bottom-right-radius: 0;
+image-rendering: pixelated;
+}
+
+.box div.card-video .volume-control{
+position: absolute;
+bottom: 10px;
+font-size: 30px;
+right: 10px;
+}
+
+.box div.card-video .volume-up{
+display: none;
+}
+
+.box div.card-info .metadata{
+padding: 0px 10px;
+align-items: center;
+color: #fff;
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+}
+
+.box div.card-info .metadata .score{
+color: #46d369;
+white-space: unset;
+font-size: 10px;
+font-weight: 700;
+width: 100px;
+}
+
+.box div.card-info .genre-list{
+padding: 5px 2px;
+align-items: center;
+color: #fff;
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+font-size: 8px;
+}
+
+
+.genre-list .genre-separator:before {
+color: #646464;
+content: "\2022";
+display: inline-block;
+font-size: 1vw;
+padding-right: 0.3vw;
+padding-left: 0.3vw;
+}
+
+
 
 .box img {
-  border-radius: 2px;
+border-radius: 2px;
 }
+
 
 /* LINKS */
 .link {
-  padding: 50px;
+padding: 50px;
 }
 
 .sub-links ul {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
+list-style: none;
+padding: 0;
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(4, 1fr);
 }
 
 .sub-links a {
-  color: var(--dark);
-  text-decoration: none;
+color: var(--dark);
+text-decoration: none;
 }
 
 .sub-links a:hover {
-  color: var(--dark);
-  text-decoration: underline;
+color: var(--dark);
+text-decoration: underline;
 }
 
 .logos a{
-  padding: 10px;
+padding: 10px;
 }
 
 .logo {
-  color: var(--dark);
+color: var(--dark);
 }
 
 
 /* FOOTER */
 footer {
-  padding: 20px;
-  text-align: center;
-  color: var(--dark);
-  margin: 10px;
+padding: 20px;
+text-align: center;
+color: var(--dark);
+margin: 10px;
 }
 
 /* MEDIA QUERIES */
 
 @media(max-width: 900px) {
 
-  header {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas: 
-    "nt nt nt  .  .  . sb . . . "
-    "mn mn mn mn mn mn  mn mn mn mn";
-  }
+header {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(2, 1fr);
+grid-template-areas: 
+"nt nt nt  .  .  . sb . . . "
+"mn mn mn mn mn mn  mn mn mn mn";
+}
 
-  .box {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
-  }
+.box {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(4, minmax(100px, 1fr));
+}
 
 }
 
 @media(max-width: 700px) {
 
-  header {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas: 
-    "nt nt nt  .  .  . sb . . . "
-    "mn mn mn mn mn mn  mn mn mn mn";
-  }
+header {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(2, 1fr);
+grid-template-areas: 
+"nt nt nt  .  .  . sb . . . "
+"mn mn mn mn mn mn  mn mn mn mn";
+}
 
-  .box {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
-  }
+.box {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(3, minmax(100px, 1fr));
+}
 
-  .sub-links ul {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(3, 1fr);
-  }
-   
+.sub-links ul {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(3, 1fr);
+}
+
 }
 
 @media(max-width: 500px) {
 
-  .wrapper {
-    font-size: 15px;
-  }
+.wrapper {
+font-size: 15px;
+}
 
-  header {
-    margin: 0;
-    padding: 20px 0 0 0;
-    position: static;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-areas: 
-    "nt"    
-    "mn"
-    "sb";
-    text-align: center;
-  }
+header {
+margin: 0;
+padding: 20px 0 0 0;
+position: static;
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(1, 1fr);
+grid-template-areas: 
+"nt"    
+"mn"
+"sb";
+text-align: center;
+}
 
-  .animeflixLogo {
-    max-width: 100%;
-    margin: auto;
-    padding-right: 20px;
-  }
+.animeflixLogo {
+max-width: 100%;
+margin: auto;
+padding-right: 20px;
+}
 
-  .main-nav {
-    display: grid;
-    grid-gap: 0px;
-    grid-template-columns: repeat(1, 1fr);
-    text-align: center;
-  }
+.main-nav {
+display: grid;
+grid-gap: 0px;
+grid-template-columns: repeat(1, 1fr);
+text-align: center;
+}
 
-  h1 {
-    text-align: center;
-    font-size: 18px;
-  }
+h1 {
+text-align: center; 
+font-size: 18px;
+}
 
- 
 
-  .box {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(1, 1fr);
-    text-align: center;    
-  }
 
-  .box a:hover {
-    transition: transform .3s;
-    -ms-transform: scale(1);
-    -webkit-transform: scale(1);  
-    transform: scale(1.2);
-  }
+.box {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(1, 1fr);
+text-align: center;    
+}
 
-  .logos {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
-    text-align: center;
-  }
 
-  .sub-links ul {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(1, 1fr);
-    text-align: center;
-    font-size: 15px;
-  }
+.logos {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(2, 1fr);
+text-align: center;
+}
 
-  
+.sub-links ul {
+display: grid;
+grid-gap: 20px;
+grid-template-columns: repeat(1, 1fr);
+text-align: center;
+font-size: 15px;
+}
+
+
 }

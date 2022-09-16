@@ -4,6 +4,19 @@ body {
 	font-family: 'Varela Round', sans-serif;
 	font-size: 13px;
 }
+
+button:focus{
+	outline: none;
+	box-shadow: none !important;
+}
+
+.exc{
+    color: red;
+    font-size: 17px;
+    position: absolute;
+    font-weight: bold;
+}
+
 .table-responsive {
     margin: 30px 0;
 }
@@ -20,7 +33,7 @@ body {
 	color: #fff;
 	padding: 16px 30px;
 	min-width: 100%;
-	margin: -20px -25px 10px;
+	margin: -20px -25px 25px;
 	border-radius: 3px 3px 0 0;
 }
 .table-title h2 {
@@ -78,8 +91,6 @@ table.table td:last-child i {
 	margin: 0 5px;
 }
 table.table td a {
-	font-weight: bold;
-	color: #566787;
 	display: inline-block;
 	text-decoration: none;
 	outline: none !important;
@@ -93,8 +104,11 @@ table.table td a.edit {
 table.table td a.delete {
 	color: #F44336;
 }
-table.table td i {
-	font-size: 19px;
+table.table td i.green{
+	color: #2d9f2d;
+}
+table.table td i.red{
+	color: #ff5050;
 }
 table.table .avatar {
 	border-radius: 50%;
@@ -191,7 +205,7 @@ table.table .avatar {
 }
 /* Modal styles */
 .modal .modal-dialog {
-	max-width: 400px;
+	max-width: 600px;
 }
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {
 	padding: 20px 30px;

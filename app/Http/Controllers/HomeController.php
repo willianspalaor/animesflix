@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Repositories\CategoryRepository;
+
 class HomeController extends Controller
 {
-    
-    public function __construct(){
-
-    }
-
+    /**
+    *
+    * @return void
+    */
     public function index(){
-        
-        return view('home.index');
+
+
+        return view('home.index')->with('categories', (new CategoryRepository())->getAllActive());
     }
 }
